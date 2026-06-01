@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import mongoose from "mongoose";
 import { errorHandler } from "./middlewares/errorHandler.middleware.js";
 import { logger } from "./middlewares/logger.middleware.js";
+import authRouter from "./routes/auth.route.js";
 
 const app = express();
 dotenv.config();
@@ -14,12 +15,14 @@ app.use(express.json());
 
 app.use(logger);
 
+app.use("/api/auth", authRouter);
+
 database.on("error", (error) => console.log(error));
 database.once("connected", () => {
-	console.log("Database connected");
-	app.listen(PORT, () => {
-		console.log(`Server is running on port ${PORT}`);
-	});
+  console.log("Database connected");
+  app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+  });
 });
 
 app.use(errorHandler);
