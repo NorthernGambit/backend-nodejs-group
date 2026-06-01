@@ -1,10 +1,8 @@
-import Menu from "../models/menu.model.js";
+import Product from "../models/product.model.js";
 
 export const getMenu = async () => {
 	try {
-		const result = await Menu.find();
-
-		console.log(result);
+		const result = await Product.find();
 
 		return {
 			success: true,
