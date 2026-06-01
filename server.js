@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 import { errorHandler } from "./middlewares/errorHandler.middleware.js";
 import { logger } from "./middlewares/logger.middleware.js";
 import authRouter from "./routes/auth.route.js";
+import menuRouter from "./routes/menu.route.js";
 
 const app = express();
 dotenv.config();
@@ -16,6 +17,7 @@ app.use(express.json());
 app.use(logger);
 
 app.use("/api/auth", authRouter);
+app.use("/api/menu", menuRouter);
 
 database.on("error", (error) => console.log(error));
 database.once("connected", () => {
