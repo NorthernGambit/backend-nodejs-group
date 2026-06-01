@@ -6,6 +6,7 @@ import { logger } from "./middlewares/logger.middleware.js";
 import authRouter from "./routes/auth.route.js";
 import menuRouter from "./routes/menu.route.js";
 import cartRouter from "./routes/cart.route.js";
+import apiKeysRouter from "./routes/api_keys.route.js";
 
 const app = express();
 dotenv.config();
@@ -20,6 +21,7 @@ app.use(logger);
 app.use("/api/auth", authRouter);
 app.use("/api/menu", menuRouter);
 app.use("/api/cart", cartRouter);
+app.use("/api/keys", apiKeysRouter);
 
 database.on("error", (error) => console.log(error));
 database.once("connected", () => {
