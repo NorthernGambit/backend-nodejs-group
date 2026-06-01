@@ -1,6 +1,6 @@
 import mongoose, { Schema, model } from "mongoose";
 
-const menuSchema = new mongoose.Schema({
+const productSchema = new Schema({
 	title: {
 		type: String,
 		required: true,
@@ -15,6 +15,6 @@ const menuSchema = new mongoose.Schema({
 	},
 });
 
-const Menu = model("Menu", menuSchema);
+const Product = model("Product", productSchema);
 
-export default Menu;
+export default Product;
