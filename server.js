@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import mongoose from "mongoose";
 import { errorHandler } from "./middlewares/errorHandler.middleware.js";
 import { logger } from "./middlewares/logger.middleware.js";
+import menuRouter from "./routes/menu.route.js";
 
 const app = express();
 dotenv.config();
@@ -13,6 +14,8 @@ const database = mongoose.connection;
 app.use(express.json());
 
 app.use(logger);
+
+app.use("/api/menu", menuRouter);
 
 database.on("error", (error) => console.log(error));
 database.once("connected", () => {
