@@ -4,7 +4,6 @@ const cartItemSchema = new Schema({
 	productId: {
 		type: String,
 		required: true,
-		unique: true,
 	},
 	title: {
 		type: String,
