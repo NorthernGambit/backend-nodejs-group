@@ -19,13 +19,25 @@ const cartItemSchema = new Schema({
 	},
 });
 
-const cartSchema = new Schema({
-	userId: {
-		type: String,
-		unique: true,
+const cartSchema = new Schema(
+	{
+		userId: {
+			type: String,
+			unique: true,
+			required: true,
+		},
+		guest: {
+			type: Boolean,
+			required: true,
+		},
+		items: [cartItemSchema],
+		totalPrice: {
+			type: Number,
+			required: true,
+		},
 	},
-	items: [cartItemSchema],
-});
+	{ timestamps: true },
+);
 
 const Cart = model("Cart", cartSchema);
 
