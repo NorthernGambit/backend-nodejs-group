@@ -31,6 +31,42 @@ export const getOrderById = async (req, res, next) => {
   res.json({
     success: true,
     message: "Orders succesfully retrieved",
-    orders: result.order,
+    orders: result.orders,
   });
+};
+
+export const createOrder = async (req, res, next) => {
+  const { cartId } = req.body;
+
+  // Placeholder medans väntar på Leos branch
+  const result = await ordersService.getCartById(cartId);
+
+  if (!result.success) {
+    return next({
+      status: 500,
+      message: `Database failed to retrieve cart, error: ${result.message}`,
+    });
+  }
+
+  const cart = result.cart;
+
+  const order = await ordersService.createOrder({
+    userId: cart.userId,
+    items: cart.items,
+  });
+
+  if (!order.success) {
+    return next({
+      success: false,
+      message: order.message,
+    });
+  }
+
+  res.status(201).json({
+    success: true,
+    message: "Order succesfully created",
+    ...order,
+  });
+
+  // Saknas remove/delete cart funktion här
 };
