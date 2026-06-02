@@ -1,5 +1,4 @@
 import { keyExists } from "../services/api_keys.service.js";
-import { userIdExists } from "../services/orders.service.js";
 
 export const authorizeUser = (req, res, next) => {
   const user = global.user;
@@ -33,23 +32,28 @@ export const authenticateKey = async (req, res, next) => {
   next();
 };
 
-export const authenticateOrders = async (req, res, next) => {
-  const { userId } = req.params;
+export const authenticateParams = async (req, res, next) => {
+  const params = req.params;
 
-  if (!userId) {
+  if (!params) {
     next({
       status: 401,
-      message: "No userId provided",
+      message: "No params provided",
     });
   }
 
-  const result = await userIdExists(userId);
+  next();
+};
 
-  if (!result.success) {
+export const authenticateBody = async (req, res, next) => {
+  const body = req.body;
+
+  if (!body) {
     next({
       status: 401,
-      message: result.message,
+      message: "No body provided",
     });
   }
+
   next();
 };
