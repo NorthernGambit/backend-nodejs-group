@@ -15,3 +15,19 @@ export const getCarts = async () => {
 		};
 	}
 };
+
+export const getCartById = async (id) => {
+	try {
+		const result = await Cart.find({ userId: id });
+
+		return {
+			success: true,
+			cart: result,
+		};
+	} catch (error) {
+		return {
+			success: false,
+			message: error.message,
+		};
+	}
+};

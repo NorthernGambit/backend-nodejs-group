@@ -16,3 +16,13 @@ export const getCarts = async (req, res, next) => {
 		carts: result.carts,
 	});
 };
+
+export const patchCart = async (req, res, next) => {
+	const body = req.body;
+	const user = global.user;
+
+	if (user) {
+		//check if cart exists already else create a new one
+	} else if (!user) {
+	}
+};

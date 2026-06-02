@@ -7,5 +7,6 @@ const router = Router();
 // router.use(authMiddleware.authenticateKey);
 
 router.get("/", cartController.getCarts);
+router.patch("/");
 
 export default router;
