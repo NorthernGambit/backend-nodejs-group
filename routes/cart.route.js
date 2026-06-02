@@ -8,6 +8,14 @@ const router = Router();
 router.use(authMiddleware.authenticateKey);
 
 router.get("/", cartController.getCarts);
+
+// GET cart by cartId
+router.get(
+  "/:cartId",
+  authMiddleware.authenticateParams,
+  cartController.getCartById,
+);
+
 router.patch("/", validateCartPatch, cartController.patchCart);
 
 export default router;
