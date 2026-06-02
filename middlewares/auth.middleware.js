@@ -1,3 +1,5 @@
+import { keyExists } from "../services/api_keys.service.js";
+
 export const authorizeUser = (req, res, next) => {
   const user = global.user;
   if (!user) {
