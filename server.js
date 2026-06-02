@@ -21,16 +21,16 @@ app.use(logger);
 
 app.use("/api/auth", authRouter);
 app.use("/api/menu", menuRouter);
-app.use("/api/cart", cartRouter);
+app.use("/api/carts", cartRouter);
 app.use("/api/keys", apiKeysRouter);
 app.use("/api/orders", ordersRouter);
 
 database.on("error", (error) => console.log(error));
 database.once("connected", () => {
-  console.log("Database connected");
-  app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-  });
+	console.log("Database connected");
+	app.listen(PORT, () => {
+		console.log(`Server is running on port ${PORT}`);
+	});
 });
 
 app.use(errorHandler);
