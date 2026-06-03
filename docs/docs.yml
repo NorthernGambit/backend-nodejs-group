@@ -1,0 +1,152 @@
+info:
+  title: airbeans
+  description: API Documentation for Airbeans
+  version: 1.0.0
+openapi: 3.0.1
+components:
+  responses:
+    BadRequestResponse:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              success:
+                type: boolean
+                example: false
+              message:
+                type: string
+                example: Invalid request parameters
+    UnauthorizedResponse:
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                    example: false
+                  message:
+                    type: string
+                    example: Invalid password
+  parameters:
+    ApiKeyHeader:
+      in: header
+      name: x-api-key
+      required: true
+      schema:
+        type: string
+        example: xxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+
+paths:
+  /api/keys:
+    get:
+      tags:
+        - API Keys
+      description: Get a random API key
+      content:
+        aplication/json:
+          schema:
+            type: object
+            properties:
+              success:
+                type: boolean
+                example: true
+              key:
+               type: string
+               example: xxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+      responses:
+        "200":
+          description: Api keys successfully retrieved
+          content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                success:
+                  type: boolean
+                  example: true
+                key:
+                  type: string
+                  example: xxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+  /api/auth/register:
+    post:
+      tags:
+        - Authentication
+      description: Register a new user
+      parameters:
+        - $ref: "#/components/parameters/ApiKeyHeader"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  example: user123
+                password:
+                  type: string
+                  example: password123
+      responses:
+        "201":
+          description: response for successful registration
+          content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                success:
+                  type: boolean
+                  example: true
+                message:
+                  type: string
+                  example: User registered successfully
+        "400":
+          $ref: "#/components/responses/BadRequestResponse"
+  /api/auth/login:
+    post:
+      tags:
+        - Authentication
+      description: Login to the application
+      parameters:
+        - $ref: "#/components/parameters/ApiKeyHeader"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  example: user123
+                password:
+                  type: string
+                  example: password123
+      responses:
+        "201":
+          description: response for successful login
+          content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                success:
+                  type: boolean
+                  example: true
+                message:
+                  type: string
+                  example: User logged in successfully
+        "400":
+          $ref: "#/components/responses/BadRequestResponse"
+        "401":
+          $ref: "#/components/responses/UnauthorizedResponse"
+  /api/menu:
+    get:
+      tags:
+        - Menu
+      
