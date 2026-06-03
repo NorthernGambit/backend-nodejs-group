@@ -53,27 +53,3 @@ export const createOrder = async (order) => {
     };
   }
 };
-
-// Placeholder medans väntar på Leos branch
-export const getCartById = async (cartId) => {
-  try {
-    const result = await Cart.findOne({ userId: cartId });
-
-    if (result) {
-      return {
-        success: true,
-        orders: result,
-      };
-    } else throw new Error("No carts connected to given Id");
-
-    return {
-      success: true,
-      cart: result,
-    };
-  } catch (error) {
-    return {
-      success: false,
-      message: error.message,
-    };
-  }
-};

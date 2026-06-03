@@ -5,6 +5,7 @@ import { loginUser, registerUser } from "../controllers/auth.controller.js";
 const router = Router();
 
 router.use(authMiddleware.authenticateKey);
+router.use(authMiddleware.authenticateBody);
 
 // POST register user
 router.post("/register", registerUser);
