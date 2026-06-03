@@ -18,6 +18,29 @@ export const getCarts = async () => {
 	}
 };
 
+export const getCartById = async (cartId) => {
+	try {
+		const result = await Cart.findById(cartId);
+
+		if (!result) {
+			return {
+				success: false,
+				message: "Cart not found with the provided ID",
+			};
+		}
+
+		return {
+			success: true,
+			cart: result,
+		};
+	} catch (error) {
+		return {
+			success: false,
+			message: error.message,
+		};
+	}
+};
+
 export const getCartByUserId = async (userId) => {
 	try {
 		const result = await Cart.findOne({ userId });

@@ -19,6 +19,24 @@ export const getCarts = async (req, res, next) => {
 	});
 };
 
+export const getCartById = async (req, res, next) => {
+	const { cartId } = req.params;
+	const result = await cartService.getCartById(cartId);
+
+	if (!result.success) {
+		return next({
+			status: 500,
+			message: `Database failed to retrieve cart, error: ${result.message}`,
+		});
+	}
+
+	res.json({
+		success: true,
+		message: "Cart succesfully retrieved",
+		cart: result.cart,
+	});
+};
+
 export const patchCart = async (req, res, next) => {
 	let newCart;
 	let newGuestCart = false;
