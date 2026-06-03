@@ -19,13 +19,20 @@ const orderItemSchema = new Schema({
   },
 });
 
-const orderSchema = new Schema({
-  userId: {
-    type: String,
-    required: true,
+const orderSchema = new Schema(
+  {
+    userId: {
+      type: String,
+      required: true,
+    },
+    items: [orderItemSchema],
+    totalPrice: {
+      type: Number,
+      required: true,
+    },
   },
-  items: [orderItemSchema],
-});
+  { timestamps: true },
+);
 
 const Order = model("Order", orderSchema);
 

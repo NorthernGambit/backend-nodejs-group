@@ -1,5 +1,4 @@
-import { getUser } from "../services/auth.service.js";
-import * as registerService from "../services/auth.service.js";
+import * as authService from "../services/auth.service.js";
 
 // Register user
 export const registerUser = async (req, res, next) => {
@@ -12,7 +11,7 @@ export const registerUser = async (req, res, next) => {
     });
   }
 
-  const existingUser = await getUser(newUser.username);
+  const existingUser = await authService.getUser(newUser.username);
 
   if (existingUser.success) {
     return next({
@@ -21,7 +20,7 @@ export const registerUser = async (req, res, next) => {
     });
   }
 
-  const result = await registerService.registerUser({
+  const result = await authService.registerUser({
     username: newUser.username,
     password: newUser.password,
     role: newUser.role,
@@ -52,11 +51,12 @@ export const loginUser = async (req, res, next) => {
     });
   }
 
-  const result = await getUser(user.username);
+  const result = await authService.getUser(user.username);
 
   if (result.success) {
     if (user.password === result.user.password) {
-      global.user = user;
+      global.user = result.user;
+      console.log(global.user);
 
       res.status(201).json({
         success: true,
